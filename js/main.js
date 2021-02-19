@@ -76,6 +76,11 @@ $(function() {
       box_shadow: '#0078D8',
       icon: 'img/baidu-xs.png',
     }, {
+      name: '搜狐号',
+      link: 'https://mp.sohu.com/',
+        box_shadow: '#F2C91F',
+      icon: 'img/souhu-xs.png',
+    }, {
       name: '公众号',
       link: 'https://mp.weixin.qq.com/',
       box_shadow: '#11B063',
