@@ -1,10 +1,10 @@
 - name:zyli.top
   uses:zyli.top/master@v1
   with:
-    secret_id:AKIDub5Vo6Wesz5jgWCUR97rY1EHdy52OPvI
-    secret_key:Z4kLjzQhx686VdZLxNXSAcqoaDbmhM6b
-    cos_bucket:abc-dh-1251151891
-    cos_region:abc-dh-1251151891
+    secret_id:${{ secrets.SECRET_ID }}
+    secret_key:${{ secrets.SECRET_KEY }}
+    cos_bucket:${{ secrets.BUCKET }}
+    cos_region:ap-beijing
     local_path:/
     remote_path:/
     clean: # optional
