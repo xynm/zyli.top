@@ -1,0 +1,19 @@
+- name: Tencent Cloud COS Action
+  # You may pin to the exact commit or the version.
+  # uses: TencentCloud/cos-action@5ee3807d5ff6fddadbbb1d3e658c0690863de8ec
+  uses: TencentCloud/cos-action@v1
+  with:
+    # Tencent cloud secret id. Should be referred to a encrypted environment variable
+    secret_id: AKIDub5Vo6Wesz5jgWCUR97rY1EHdy52OPvI
+    # Tencent cloud secret key. Should be referred to a encrypted environment variable
+    secret_key: Z4kLjzQhx686VdZLxNXSAcqoaDbmhM6b
+    # COS bucket name
+    cos_bucket: abc-dh-1251151891
+    # COS bucket region
+    cos_region: abc-dh-1251151891
+    # Local path to be uploaded to COS. Directory or file is allowed
+    local_path: /
+    # COS path to put the local files in on COS
+    remote_path: /
+    # Set to true for cleaning files on COS path which are not existed in local path. Default is false
+    clean: # optional
