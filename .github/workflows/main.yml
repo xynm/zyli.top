@@ -19,7 +19,7 @@ jobs:
           secret_key: ${{secrets.SECRET_KEY}}
           bucket: ${{secrets.BUCKET}}
           region: ap-beijing
-          run: coscmd config -a $SECRET_ID -s $SECRET_KEY -b $BUCKET -r $REGION
+          run: coscmd config -a $secret_id -s $secret_key -b $bucket -r $region
           
       - name: Upload to COS
         run: coscmd upload -r ./ / --ignore "./.git/*"
