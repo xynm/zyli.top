@@ -9,9 +9,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Setup Python
       - uses: actions/checkout@v1
- 
       - name: Install coscmd
         run: sudo pip install -U coscmd
 
