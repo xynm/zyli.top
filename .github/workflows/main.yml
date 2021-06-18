@@ -1,5 +1,4 @@
 name: Tencent Cloud COS Action
-
 on:
   push:
     branches:
