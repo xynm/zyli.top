@@ -12,4 +12,4 @@ jobs:
         SECRET_ID: ${{ secrets.SECRET_ID }}
         SECRET_KEY: ${{ secrets.SECRET_KEY }}
         BUCKET: ${{ secrets.BUCKET }}
-        REGION: ap-beijing
+        REGION: ${{ secrets.REGION }}
