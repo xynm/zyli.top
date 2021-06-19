@@ -1,6 +1,8 @@
 name: Tencent Cloud COS Action
-on: [push]
-
+on: 
+  push:
+    branches:
+      - master
 jobs:
   cos-action:
     runs-on: ubuntu-latest
