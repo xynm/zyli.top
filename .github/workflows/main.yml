@@ -8,7 +8,7 @@ jobs:
     - name: upload
       uses: xynm/cos-action@v2
       with:
-        COMMAND: coscmd upload -rs --delete -f ./ / --ignore "./.git/*"
+        COMMAND: coscmd upload -r ./ / --ignore "./.git/*"
         SECRET_ID: ${{ secrets.SECRET_ID }}
         SECRET_KEY: ${{ secrets.SECRET_KEY }}
         BUCKET: ${{ secrets.BUCKET }}
