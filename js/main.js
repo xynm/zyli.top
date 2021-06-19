@@ -57,7 +57,7 @@ $(function() {
   var bookmark = {
     data: [{
       name: '日志',
-      link: 'http://#',
+      link: 'https://xynm.net',
       box_shadow: '#F18033',
       icon: 'img/log.png',
     }, {
