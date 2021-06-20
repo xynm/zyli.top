@@ -11,7 +11,7 @@ jobs:
     - name: upload
       uses: xynm/cos-action@v2
       with:
-        COMMAND: coscmd upload -rs --skipmd5 ./ / --ignore ".git*"
+        COMMAND: coscmd upload -rs --skipmd5 ./ / --ignore "./.git/*"
         SECRET_ID: ${{ secrets.SECRET_ID }}
         SECRET_KEY: ${{ secrets.SECRET_KEY }}
         BUCKET: ${{ secrets.BUCKET }}
