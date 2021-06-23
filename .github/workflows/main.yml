@@ -7,10 +7,11 @@ jobs:
   cos-action:
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v1
     - name: upload
       uses: xynm/cos-action@v2
       with:
-        COMMAND: coscmd upload -rs --skipmd5 ./ / --ignore "./.git/*"
+        COMMAND: coscmd upload -rs --skipmd5 ./ / --ignore "./.git/*","./.github/*","./CNAME"
         SECRET_ID: ${{ secrets.SECRET_ID }}
         SECRET_KEY: ${{ secrets.SECRET_KEY }}
         BUCKET: ${{ secrets.BUCKET }}
