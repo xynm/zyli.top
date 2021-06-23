@@ -140,7 +140,12 @@ $(function() {
       link: 'https://vp.fact.qq.com/home',
       box_shadow: '#00A0E9',
       icon: 'img/true.png',
-    }]
+      }, {
+        name: '人民币大小写',
+      link: 'https://abc.02z.top/tools/rmb/',
+        box_shadow: '#00A0E9',
+      icon: 'img/coolapk.png',
+      }]
   }
   for (var i = 0; i < bookmark.data.length; i++) {
     if (bookmark.data[i].name == 'Via插件') {
