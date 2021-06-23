@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>人民币大写在线转换工具</title>
+<META content="人民币大写在线转换工具" name=Description>
+<META content="人民币大写在线转换工具 在线将阿拉伯数字转换成中文大写工具 人民币大写转换工具" name=Keywords>
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<SCRIPT language=jscript>
+function convertCurrency(currencyDigits) { 
+// Constants: 
+    var MAXIMUM_NUMBER = 99999999999.99; 
+    // Predefine the radix characters and currency symbols for output: 
+    var CN_ZERO = "零"; 
+    var CN_ONE = "壹"; 
+    var CN_TWO = "贰"; 
+    var CN_THREE = "叁"; 
+    var CN_FOUR = "肆"; 
+    var CN_FIVE = "伍"; 
+    var CN_SIX = "陆"; 
+    var CN_SEVEN = "柒"; 
+    var CN_EIGHT = "捌"; 
+    var CN_NINE = "玖"; 
+    var CN_TEN = "拾"; 
+    var CN_HUNDRED = "佰"; 
+    var CN_THOUSAND = "仟"; 
+    var CN_TEN_THOUSAND = "万"; 
+    var CN_HUNDRED_MILLION = "亿"; 
+    var CN_SYMBOL = ""; 
+    var CN_DOLLAR = "元"; 
+    var CN_TEN_CENT = "角"; 
+    var CN_CENT = "分"; 
+    var CN_INTEGER = "整"; 
+     
+// Variables: 
+    var integral;    // Represent integral part of digit number. 
+    var decimal;    // Represent decimal part of digit number. 
+    var outputCharacters;    // The output result. 
+    var parts; 
+    var digits, radices, bigRadices, decimals; 
+    var zeroCount; 
+    var i, p, d,ds; 
+    var quotient, modulus; 
+     
+// Validate input string: 
+    currencyDigits = currencyDigits.toString(); 
+    if (currencyDigits == "") { 
+        alert("不能为空 请输入数字金额!如：123.23"); 
+        return ""; 
+    } 
+    if (currencyDigits.match(/[^,.\d]/) != null) { 
+        alert("输入字符串中的字符无效!"); 
+        return ""; 
+    } 
+    if ((currencyDigits).match(/^((\d{1,3}(,\d{3})*(.((\d{3},)*\d{1,3}))?)|(\d+(.\d+)?))$/) == null) { 
+        alert("请输入正确的数字金额!"); 
+        return ""; 
+    } 
+     
+// Normalize the format of input digits: 
+    currencyDigits = currencyDigits.replace(/,/g, "");    // Remove comma delimiters. 
+    currencyDigits = currencyDigits.replace(/^0+/, "");    // Trim zeros at the beginning. 
+    // Assert the number is not greater than the maximum number. 
+    if (Number(currencyDigits) > MAXIMUM_NUMBER) { 
+        alert("Too large a number to convert!"); 
+        return ""; 
+    } 
+     
+// Process the coversion from currency digits to characters: 
+    // Separate integral and decimal parts before processing coversion: 
+    parts = currencyDigits.split("."); 
+    if (parts.length > 1) { 
+        integral = parts[0]; 
+        decimal = parts[1]; 
+        // Cut down redundant decimal digits that are after the second. 
+        decimal = decimal.substr(0, 2); 
+    } 
+    else { 
+        integral = parts[0]; 
+        decimal = ""; 
+    } 
+    // Prepare the characters corresponding to the digits: 
+    digits = new Array(CN_ZERO, CN_ONE, CN_TWO, CN_THREE, CN_FOUR, CN_FIVE, CN_SIX, CN_SEVEN, CN_EIGHT, CN_NINE); 
+    radices = new Array("", CN_TEN, CN_HUNDRED, CN_THOUSAND); 
+    bigRadices = new Array("", CN_TEN_THOUSAND, CN_HUNDRED_MILLION); 
+    decimals = new Array(CN_TEN_CENT, CN_CENT); 
+    // Start processing: 
+    outputCharacters = ""; 
+    // Process integral part if it is larger than 0: 
+    if (Number(integral) > 0) { 
+        zeroCount = 0; 
+        for (i = 0; i < integral.length; i++) { 
+            p = integral.length - i - 1; 
+            d = integral.substr(i, 1); 
+            quotient = p / 4; 
+            modulus = p % 4; 
+            if (d == "0") { 
+                zeroCount++; 
+            } 
+            else { 
+                if (zeroCount > 0) 
+                { 
+                    outputCharacters += digits[0]; 
+                } 
+                zeroCount = 0; 
+                outputCharacters += digits[Number(d)] + radices[modulus]; 
+            } 
+            if (modulus == 0 && zeroCount < 4) { 
+                outputCharacters += bigRadices[quotient]; 
+            } 
+        } 
+        outputCharacters += CN_DOLLAR; 
+    } 
+    // Process decimal part if there is: 
+    if (decimal != "") { 
+        for (i = 0; i < decimal.length; i++) { 
+            d = decimal.substr(i, 1); 
+            ds=decimal.substr(-1, 1);
+			if(d==0){
+				if(ds==0){
+					outputCharacters += "";
+					}
+				else{
+				outputCharacters += digits[Number(d)];
+				}
+				}
+			else{
+				
+			outputCharacters += digits[Number(d)] + decimals[i];
+			
+			}
+        } 
+    } 
+    // Confirm and return the final output string: 
+    if (outputCharacters == "") { 
+        outputCharacters = CN_ZERO + CN_DOLLAR; 
+    } 
+    if (decimal == "") { 
+        outputCharacters += CN_INTEGER; 
+    } 
+    outputCharacters = CN_SYMBOL + outputCharacters; 
+    return outputCharacters; 
+} 
+</SCRIPT>
+<script async src="https://ads"></script>
+<style>
+body, div, ul, ol, dl, dt, dd, li, h1, h2, h3,p{margin:0;padding:0;font-style: normal;font:14px/22px Microsoft Yahei, Arial, tahoma, Helvetica, sans-serif}
+ol, ul, li{list-style:none}
+img{border:0}
+body{color:#333333;background:#FFF url(bgs.gif) repeat-x 0 0;text-align:center}
+*:focus{outline:none}
+a{color:#252525;text-decoration:none}
+a:hover{color:#BA2636;text-decoration:underline}
+
+.a{ margin:0 auto; width:100%; overflow:hidden}
+.h30{ height:30px}
+.lf{ float:left}
+.rt{ float:right}
+.red{ color:#F00}
+
+h1.title{text-align:center;font-weight:bold;font-size:32px;height:61px;line-height:60px;font-family:"SimHei"}
+#header,#footer{height:142px;margin:0 auto;width:782px;overflow:hidden}
+.t1{line-height:30px}
+#menu{height:50px;line-height:50px;text-align:left;font-size:18px;color:#FFF}
+#menu a{padding:0 10px;color:#FFF}
+
+#content{margin:0 auto;width:782px;padding:20px 0;overflow:hidden}
+h2{ text-align:left; font-size:20px;text-indent:10px; line-height:40px; font-weight:bold; border:1px solid #CCC}
+ul.daxielist{border:1px solid #CCC;border-top:0;padding:20px 0;padding-bottom:0;width:780px;overflow:hidden}
+ul.daxielist li{ float:left; width:19.8%; font-size:18px;padding-bottom:10px;}
+
+.Instructions,.Instructionst{border:1px solid #CCC;padding:10px;border-top:0;text-align:left;font-size:16px;line-height:24px}
+.Instructionst{ padding-top:0}
+ul.zhuanhuan{ background:#F6F6F6;width:780px;border:1px solid #CCC;border-bottom:0;border-top:0;overflow:hidden;padding:10px 0}
+ul.zhuanhuan li{padding:10px;text-align:left;width:760px;overflow:hidden}
+ul.zhuanhuan li h3{ float:left;line-height:40px;height:40px;width:210px;text-align:right;font-size:18px}
+ul.zhuanhuan li .li{ float:left; height:40px; padding-left:5px; text-align:left; padding-top:3px}
+ul.zhuanhuan li .li input.shuru ,ul.zhuanhuan li .li input.xianshi{float:left;width:280px;background:#FFF;border:1px solid #333;height:40px;line-height:40px;padding:0 10px;text-align:left;font-size:20px}
+ul.zhuanhuan li .li input.xianshi{width:420px; font-family:"SimHei";font-size:18px}
+ul.zhuanhuan li .li .bto-box{float:left;padding-left:15px}
+
+ul.zhuanhuan li .li .bottom{float:left;background:url(bottoms.gif) no-repeat 0 -40px;border:0;width:124px;height:40px;overflow:hidden;text-indent:-9999px}
+ul.zhuanhuan li .li .bottom:hover{cursor:pointer;background-position:0 0}
+
+#footer{ height:auto; padding:10px 0; border-top:2px solid #2E73D6}#footer a{color:#F00}
+.w110{padding-left:20px;line-height:24px;background:url(w110.png) no-repeat 0 center}
+p{ height:20px;}
+</style>
+</head>
+<body>
+<div id="header">
+	<div class="a h30">
+    	<div class="lf t1">货币大写金额转换</div>
+        <div class="rt t1"><a href="https://www.917118.com/tool/color.html" target="_blank">颜色在线查询工具</a> <a href="/tool/rmb-shoujicha.html">手机版</a></div>
+    </div>
+    <h1 class="title"><a href="/tool/rmb.html">人民币大写在线转换工具</a></h1>
+    <div id="menu"><a href="https://abc.02z.top/">首页</a> <a href="https://abc.02z.top/">人民币大写</a> <a href="https://www.917118.com/tool/jsq.html">计算器</a> <a href="https://www.917118.com/tool/color.html" target="_blank">颜色在线查询工具</a></div>
+</div>
+<div id="content">
+<h2>1、人民币大写转换器（在线将阿拉伯数字转换成中文大写、人民币大写转换工具）</h2>
+    <form action="" method="get">
+    <ul class="a zhuanhuan">
+    	<li>
+        	<h3>输入小写数字金额：</h3>
+            <div class="li">
+            <input name="Digits" id="Digits" class="shuru" size="31" >
+            <div class="bto-box"><input id="Convert" onClick="Result.value = convertCurrency(Digits.value);" class="bottom" type="button" value="输入待转换数字金额" name="Convert"></div>
+            </div>
+        </li>
+        <li>
+        	<h3>显示中文大写金额：</h3>
+            <div class="li"><input id="Result" size="40" name="Result" class="xianshi"></div>
+        </li>
+    </ul>
+    </form>
+    <div class="Instructionst">
+    <div class="a" align="center">
+    <div class="lf">
+<!-- gr -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:336px;height:280px"
+     data-ad-client="ca-pub-4633042427404784"
+     data-ad-slot="3447449637"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+    <div class="rt">
+<!-- gr -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:336px;height:280px"
+     data-ad-client="ca-pub-4633042427404784"
+     data-ad-slot="3447449637"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+    </div>
+    <div class="a"><strong>数字转换大写工具使用说明：</strong><br>将阿拉伯数字复制粘贴或输入到“输入小写数字金额”中，比如（123456），然后单击“转换为大写金额”按钮。就会在“显示中文大写金额”框中显示自动转换完成的中文大写内容。最后复制转换完成的内容到想到的地方粘贴即可。<br>
+    <strong>人民币符号</strong>:¥；<strong>美元符号</strong>：$；<strong>欧元符号</strong>：€；<strong>英镑符号</strong>：￡（货币符号可直接鼠标选中后复制使用）。</div></div>
+    <p align="center" style="height:90px; padding:10px 0;">
+<!-- gh -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-4633042427404784"
+     data-ad-slot="2030426182"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></p>
+	<h2>2、阿拉伯数字对应大写表 - 数字转大写金额 (以下<span class="red">红色字</span>可选中复制)</h2>
+    <ul class="daxielist">
+    	<li><img src="0.jpg" alt="0 大写 零" title="0 的大写为 零" /><br>0 = <b class="red">零</b></li>
+    	<li><img src="1.jpg" alt="1 大写 壹" title="1 的大写为 壹" /><br>1 = <b class="red">壹</b></li>
+        <li><img src="2.jpg" alt="2 大写 贰" title="2 的大写为 贰" /><br>2 = <b class="red">贰</b></li>
+        <li><img src="3.jpg" alt="3 大写 叁" title="3 的大写为 叁" /><br>3 = <b class="red">叁</b></li>
+        <li><img src="4.jpg" alt="4 大写 肆" title="4 的大写为 肆" /><br>4 = <b class="red">肆</b></li>
+        <li><img src="5.jpg" alt="5 大写 伍" title="5 的大写为 伍" /><br>5 = <b class="red">伍</b></li>
+        <li><img src="6.jpg" alt="6 大写 陆" title="6 的大写为 陆" /><br>6 = <b class="red">陆</b></li>
+        <li><img src="7.jpg" alt="7 大写 柒" title="7 的大写为 柒" /><br>7 = <b class="red">柒</b></li>
+        <li><img src="8.jpg" alt="8 大写 捌" title="8 的大写为 捌" /><br>8 = <b class="red">捌</b></li>
+        <li><img src="9.jpg" alt="9 大写 玖" title="9 的大写为 玖" /><br>9 = <b class="red">玖</b></li>
+    </ul>
+    <div class="Instructions"><strong>使用说明：</strong><br/>中文大写金额数字前应标明“人民币”字样，大写金额数字应紧接“人民币”字样填写，不得留有空白。<br>阿拉伯数字小写金额数字中有“0”时，中文大写应按照汉语语言规律、金额数字构成和防止涂改的要求进行书写。<br>例如：￥206000.75应写成 人民币贰拾万陆仟元零柒角伍分，或写成 人民币贰拾万零陆仟元柒角伍分。</div>
+    <h2>3、金额单位(位数)对应表</h2>
+    <ul class="daxielist">
+    	<li><img src="yi.jpg" alt="亿" title="亿" /><br>亿 = <b class="red">亿</b></li>
+        <li><img src="wan.jpg" alt="万" title="万" /><br>万 = <b class="red">万</b></li>
+        <li><img src="qian.jpg" alt="仟" title="仟" /><br>千 = <b class="red">仟</b></li>
+        <li><img src="bai.jpg" alt="佰" title="佰" /><br>百 = <b class="red">佰</b></li>
+    	<li><img src="10.jpg" alt="拾" title="拾" /><br>十 = <b class="red">拾</b></li>
+        <li><img src="yuan.jpg" alt="元" title="元" /><br>元 = <b class="red">元(圆)</b></li>
+        <li><img src="jiao.jpg" alt="角" title="角" /><br>角 = <b class="red">角</b></li>
+        <li><img src="fen.jpg" alt="分" title="分" /><br>分 = <b class="red">分</b></li>
+        <li><img src="zheng1.jpg" alt="正" title="正" /><br>正 = <b class="red">正</b></li>
+        <li><img src="zheng2.jpg" alt="整" title="整" /><br>整 = <b class="red">整</b></li>
+    </ul>
+    <div class="Instructions"><strong>使用说明：</strong><br/>中文大写金额数字到“元”为止的，在“元”之后、应写“整”(或“正”)字；在“角”之后，可以不写“整”(或“正”)字；大写金额数字有“分”的，“分”后面不写“整”(或“正”)字。</div>
+</div>
+<div id="footer"><a href="https://#">广告经验</a> | <a href="https://#">广告物料</a> <br>欢迎访问由<a href="https://#">广告技术交流平台</a>提供人民币数字转大写金额工具主题页！<br />本页可用于银行汇款单、支票金额、合同等数字金额转换为大写金额工具！<br>
+<a href="http://www.beian.gov.cn/portal/" class="w110" target="_blank" rel="nofollow">网安备 xx号</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.beian.miit.gov.cn/" target="_blank" rel="nofollow">蒙ICP备2021001048号-1</a></div>
+</body>
+</html>
